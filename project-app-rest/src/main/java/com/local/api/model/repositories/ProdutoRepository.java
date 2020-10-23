@@ -1,0 +1,10 @@
+package com.local.api.model.repositories;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.local.api.model.entities.Produto;
+
+public interface ProdutoRepository extends JpaRepository<Produto, Long> {
+
+	
+}
