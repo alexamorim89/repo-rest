@@ -10,10 +10,12 @@ import org.springframework.context.annotation.Profile;
 
 import com.local.api.model.entities.Categoria;
 import com.local.api.model.entities.Pedido;
+import com.local.api.model.entities.PedidoItem;
 import com.local.api.model.entities.Produto;
 import com.local.api.model.entities.Usuario;
 import com.local.api.model.entities.enums.PedidoStatus;
 import com.local.api.model.repositories.CategoriaRepository;
+import com.local.api.model.repositories.PedidoItemRepository;
 import com.local.api.model.repositories.PedidoRepository;
 import com.local.api.model.repositories.ProdutoRepository;
 import com.local.api.model.repositories.UsuarioRepository;
@@ -33,6 +35,9 @@ public class TestConfig implements CommandLineRunner {
 	
 	@Autowired
 	private ProdutoRepository produtoRepository;
+	
+	@Autowired
+	private PedidoItemRepository pedidoItemRepository;
 	
 	@Override
 	public void run(String... args) throws Exception {
@@ -64,10 +69,15 @@ public class TestConfig implements CommandLineRunner {
 		Pedido pedido1 = new Pedido(null, Instant.parse("2019-06-20T19:53:07Z"), PedidoStatus.PAGO, usuario1);
 		Pedido pedido2 = new Pedido(null, Instant.parse("2019-07-21T03:42:10Z"), PedidoStatus.AGUARDANDO_PAGAMENTO, usuario2);
 		Pedido pedido3 = new Pedido(null, Instant.parse("2019-07-22T15:21:22Z"), PedidoStatus.AGUARDANDO_PAGAMENTO, usuario1);
-		
-		
+				
 		usuarioRepository.saveAll(Arrays.asList(usuario1, usuario2));
 		pedidoRepository.saveAll(Arrays.asList(pedido1, pedido2, pedido3));
 		
+		PedidoItem pedidoItem1 = new PedidoItem(pedido1, produto1, 2, produto1.getPreco());
+		PedidoItem pedidoItem2 = new PedidoItem(pedido1, produto3, 1, produto4.getPreco());
+		PedidoItem pedidoItem3 = new PedidoItem(pedido2, produto3, 2, produto1.getPreco());
+		PedidoItem pedidoItem4 = new PedidoItem(pedido3, produto5, 2, produto5.getPreco());
+		
+		pedidoItemRepository.saveAll(Arrays.asList(pedidoItem1, pedidoItem2, pedidoItem3, pedidoItem4));
 	}
 }
