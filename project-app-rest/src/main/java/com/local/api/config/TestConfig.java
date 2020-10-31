@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import com.local.api.model.entities.Categoria;
+import com.local.api.model.entities.Pagamento;
 import com.local.api.model.entities.Pedido;
 import com.local.api.model.entities.PedidoItem;
 import com.local.api.model.entities.Produto;
@@ -79,5 +80,11 @@ public class TestConfig implements CommandLineRunner {
 		PedidoItem pedidoItem4 = new PedidoItem(pedido3, produto5, 2, produto5.getPreco());
 		
 		pedidoItemRepository.saveAll(Arrays.asList(pedidoItem1, pedidoItem2, pedidoItem3, pedidoItem4));
+		
+		Pagamento pagamento1 = new Pagamento(null, Instant.parse("2019-06-20T21:53:07Z"), pedido1);
+		pedido1.setPagamento(pagamento1);
+		
+		pedidoRepository.save(pedido1);
+		
 	}
 }
