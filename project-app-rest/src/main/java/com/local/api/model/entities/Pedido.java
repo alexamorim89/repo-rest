@@ -100,7 +100,15 @@ public class Pedido implements Serializable {
 	public void setPagamento(Pagamento pagamento) {
 		this.pagamento = pagamento;
 	}
-
+	
+	public Double getTotal() {
+		double soma = 0;
+		for (PedidoItem pedidoItem : items) {
+			soma += pedidoItem.getSubtotal();
+		}
+		return soma;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
