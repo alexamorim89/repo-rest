@@ -28,5 +28,17 @@ public class UsuarioService {
 	public Usuario insert(Usuario usuario) {
 		return usuarioRepository.save(usuario);
 	}
+
+	public Usuario update(Long id, Usuario usuario) {
+		Usuario entity = usuarioRepository.getOne(id);
+		atualizaDados(entity, usuario);
+		return usuarioRepository.save(entity);
+	}
+
+	private void atualizaDados(Usuario entity, Usuario usuario) {
+		entity.setNome(usuario.getNome());
+		entity.setEmail(usuario.getEmail());
+		entity.setTelefone(usuario.getTelefone());
+	}
 	
 }
