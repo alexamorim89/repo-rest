@@ -35,11 +35,15 @@ public class UsuarioService {
 		atualizaDados(entity, usuario);
 		return usuarioRepository.save(entity);
 	}
-
+	
+	public void delete(Long id) {
+		usuarioRepository.deleteById(id);
+	}	
+	
 	private void atualizaDados(Usuario entity, Usuario usuario) {
 		entity.setNome(usuario.getNome());
 		entity.setEmail(usuario.getEmail());
 		entity.setTelefone(usuario.getTelefone());
-	}
+	}	
 	
 }
