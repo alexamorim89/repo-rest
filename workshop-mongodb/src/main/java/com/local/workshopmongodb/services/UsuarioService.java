@@ -34,13 +34,27 @@ public class UsuarioService {
 		return usuarioRepository.insert(usuario);
 	}
 	
+	public void delete(String id) {
+		findById(id);
+		usuarioRepository.deleteById(id);
+	}
+	
+	public Usuario update(Usuario usuario) {
+		Optional<Usuario> novoUsuario = usuarioRepository.findById(usuario.getId());
+		if(!novoUsuario.isPresent()) {
+			throw new ObjectNotFoundException("Objeto nao encontrado"); 
+		}		
+		updateData(novoUsuario.get(), usuario);
+		return usuarioRepository.save(novoUsuario.get());
+	}
+
 	public Usuario fromDTO(UsuarioDTO usuarioDTO) {
 		return new Usuario(usuarioDTO.getId(), usuarioDTO.getNome(), usuarioDTO.getEmail());
 	}
 	
-	public void delete(String id) {
-		findById(id);
-		usuarioRepository.deleteById(id);
-	}	
+	private void updateData(Usuario novoUsuario, Usuario usuario) {
+		novoUsuario.setNome(usuario.getNome());
+		novoUsuario.setEmail(usuario.getEmail());		
+	}
 	
 }
