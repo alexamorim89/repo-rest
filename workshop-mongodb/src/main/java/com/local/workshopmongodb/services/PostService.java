@@ -1,5 +1,6 @@
 package com.local.workshopmongodb.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,10 @@ public class PostService {
 			throw new ObjectNotFoundException("Objeto nao encontrado");
 		}		
 		return post.get();
+	}
+	
+	public List<Post> findByTitulo(String texto){
+		return postRepository.findByTituloContainingIgnoreCase(texto);
 	}
 	
 }
